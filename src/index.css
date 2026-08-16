@@ -1,0 +1,299 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+  background: #05050d;
+  color: #e8ecf4;
+  font-family:
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(60, 40, 120, 0.25), transparent),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(120, 30, 60, 0.18), transparent),
+    #05050d;
+}
+
+canvas {
+  display: block;
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 60px rgba(80, 60, 200, 0.15);
+}
+
+/* ---------- 覆盖层通用 ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
+  padding: 24px;
+  background: rgba(5, 5, 13, 0.72);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+.title {
+  font-size: clamp(30px, 7vw, 58px);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  background: linear-gradient(180deg, #fff 20%, #ff5566 60%, #b3122f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 40px rgba(255, 60, 80, 0.35);
+}
+
+.subtitle {
+  font-size: clamp(13px, 2.4vw, 17px);
+  color: #9aa3b8;
+  letter-spacing: 0.3em;
+}
+
+.instructions {
+  font-size: clamp(13px, 2.6vw, 16px);
+  line-height: 1.9;
+  color: #c6cddb;
+}
+
+.small-note {
+  font-size: clamp(11px, 2.2vw, 13px);
+  color: #77809a;
+  line-height: 1.8;
+}
+
+.records-line {
+  font-size: clamp(12px, 2.4vw, 15px);
+  color: #ffd166;
+  letter-spacing: 0.05em;
+}
+
+.btn {
+  font: inherit;
+  font-size: clamp(16px, 3vw, 20px);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 14px 52px;
+  color: #fff;
+  background: linear-gradient(180deg, #e8344d, #a3122c);
+  border: 1px solid rgba(255, 120, 140, 0.5);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(232, 52, 77, 0.4);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(232, 52, 77, 0.55);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn.ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+  color: #aab2c5;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 10px 32px;
+  font-size: clamp(13px, 2.4vw, 15px);
+}
+
+/* ---------- HUD ---------- */
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-status {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: clamp(11px, 2vw, 14px);
+  color: #aeb7cc;
+  line-height: 1.7;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hud-status strong {
+  color: #fff;
+  font-size: 1.15em;
+}
+
+.hud-phase {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  text-align: right;
+  font-size: clamp(11px, 2vw, 14px);
+  color: #ffb3be;
+  line-height: 1.7;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hud-timer {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(26px, 5.5vw, 44px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 0 18px rgba(255, 70, 90, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.hud-buttons {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.icon-btn {
+  font: inherit;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(10, 10, 25, 0.6);
+  color: #c9d1e2;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: rgba(40, 40, 70, 0.7);
+}
+
+/* ---------- 阶段提示语 Toast ---------- */
+.toast {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(24px, 6vw, 46px);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #fff;
+  text-shadow:
+    0 0 24px rgba(255, 60, 80, 0.9),
+    0 4px 10px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  z-index: 6;
+  animation: toast-pop 1.6s ease-out forwards;
+  white-space: nowrap;
+}
+
+@keyframes toast-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+  22% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -58%) scale(1);
+  }
+}
+
+/* ---------- 结算 ---------- */
+.verdict {
+  font-size: clamp(22px, 5vw, 38px);
+  font-weight: 900;
+  color: #ffd166;
+  text-shadow: 0 0 30px rgba(255, 209, 102, 0.4);
+  letter-spacing: 0.06em;
+}
+
+.result-title {
+  font-size: clamp(16px, 3.4vw, 22px);
+  color: #9aa3b8;
+  letter-spacing: 0.4em;
+}
+
+.result-title.win {
+  color: #7dffb0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: 10px 28px;
+  font-size: clamp(14px, 2.8vw, 17px);
+}
+
+.stat-label {
+  color: #77809a;
+  text-align: right;
+}
+
+.stat-value {
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-value.highlight {
+  color: #ff5566;
+  font-size: 1.3em;
+}
+
+.button-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.paused-text {
+  font-size: clamp(22px, 5vw, 36px);
+  font-weight: 900;
+  letter-spacing: 0.3em;
+}
