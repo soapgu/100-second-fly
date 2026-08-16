@@ -1,3 +1,17 @@
+/*
+ * 全站风格：复古街机 CRT × 赛博像素
+ * 字体：Fusion Pixel 12px（中文像素字体，12px 网格设计，倍数字号最锐利）
+ */
+:root {
+  --bg-deep: #05050d;
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff2d78;
+  --warn-red: #e8344d;
+  --panel-line: #2c3352;
+  --text-main: #e8ecf4;
+  --text-dim: #77809a;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,10 +23,11 @@ body,
 #root {
   height: 100%;
   overflow: hidden;
-  background: #05050d;
-  color: #e8ecf4;
+  background: var(--bg-deep);
+  color: var(--text-main);
   font-family:
-    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+    'Fusion Pixel 12px Monospaced SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Noto Sans SC', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   user-select: none;
   -webkit-user-select: none;
@@ -29,11 +44,21 @@ body,
   background:
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(60, 40, 120, 0.25), transparent),
     radial-gradient(ellipse 60% 50% at 50% 100%, rgba(120, 30, 60, 0.18), transparent),
-    #05050d;
+    var(--bg-deep);
+}
+
+/* 菜单页动态背景：星空 + 透视网格 + 霓虹弹幕 */
+.menu-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
 canvas {
   display: block;
+}
+
+.app > canvas:not(.menu-backdrop) {
   border-radius: 6px;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.06),
@@ -57,75 +82,115 @@ canvas {
 }
 
 .title {
-  font-size: clamp(30px, 7vw, 58px);
-  font-weight: 900;
+  font-size: clamp(26px, 6vw, 48px);
+  font-weight: 400; /* 像素字体无字重，合成粗会发糊 */
   letter-spacing: 0.08em;
-  background: linear-gradient(180deg, #fff 20%, #ff5566 60%, #b3122f);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 40px rgba(255, 60, 80, 0.35);
+  color: #fff;
+  text-shadow:
+    0 0 8px rgba(255, 60, 80, 0.55),
+    0 0 32px rgba(255, 60, 80, 0.35);
 }
 
 .subtitle {
-  font-size: clamp(13px, 2.4vw, 17px);
+  font-size: clamp(13px, 2.4vw, 15px);
   color: #9aa3b8;
   letter-spacing: 0.3em;
 }
 
+/* 终端风副标题 */
+.subtitle.terminal {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+}
+
 .instructions {
-  font-size: clamp(13px, 2.6vw, 16px);
-  line-height: 1.9;
+  font-size: clamp(13px, 2.6vw, 15px);
+  line-height: 2;
   color: #c6cddb;
 }
 
+/* 终端提示列表：每行加 > 前缀 */
+.term-list p::before {
+  content: '> ';
+  color: var(--neon-cyan);
+}
+
 .small-note {
-  font-size: clamp(11px, 2.2vw, 13px);
-  color: #77809a;
-  line-height: 1.8;
+  font-size: clamp(12px, 2.2vw, 13px);
+  color: var(--text-dim);
+  line-height: 1.9;
 }
 
-.records-line {
-  font-size: clamp(12px, 2.4vw, 15px);
-  color: #ffd166;
-  letter-spacing: 0.05em;
-}
-
+/* ---------- 8-bit 像素按钮 ---------- */
 .btn {
+  position: relative;
   font: inherit;
-  font-size: clamp(16px, 3vw, 20px);
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  padding: 14px 52px;
+  font-size: clamp(16px, 3vw, 18px);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  padding: 15px 44px 17px 48px;
   color: #fff;
-  background: linear-gradient(180deg, #e8344d, #a3122c);
-  border: 1px solid rgba(255, 120, 140, 0.5);
-  border-radius: 999px;
+  background: linear-gradient(180deg, #e8344d, #b3123a);
+  border: none;
   cursor: pointer;
-  box-shadow: 0 4px 24px rgba(232, 52, 77, 0.4);
+  /* 切掉四角 6px 形成像素斜角；外发光用 drop-shadow（clip-path 会裁掉 box-shadow 外侧） */
+  clip-path: polygon(
+    0 6px,
+    6px 6px,
+    6px 0,
+    calc(100% - 6px) 0,
+    calc(100% - 6px) 6px,
+    100% 6px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    6px calc(100% - 6px),
+    0 calc(100% - 6px)
+  );
+  box-shadow:
+    inset 0 4px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.38),
+    inset 4px 0 0 rgba(255, 255, 255, 0.1),
+    inset -4px 0 0 rgba(0, 0, 0, 0.2);
+  filter: drop-shadow(0 0 14px rgba(232, 52, 77, 0.5));
   transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease;
+    filter 0.12s ease,
+    background 0.12s ease,
+    transform 0.08s ease;
 }
 
 .btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 32px rgba(232, 52, 77, 0.55);
+  background: linear-gradient(180deg, #ff4a63, #cc1a45);
+  filter: drop-shadow(0 0 24px rgba(255, 74, 99, 0.65));
 }
 
 .btn:active {
-  transform: scale(0.97);
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 4px 0 rgba(0, 0, 0, 0.3),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.08);
+  filter: drop-shadow(0 0 10px rgba(232, 52, 77, 0.4));
 }
 
 .btn.ghost {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: none;
-  color: #aab2c5;
-  font-weight: 500;
+  background: rgba(8, 12, 26, 0.72);
+  color: #9feaf5;
   letter-spacing: 0.1em;
-  padding: 10px 32px;
-  font-size: clamp(13px, 2.4vw, 15px);
+  padding: 11px 32px 12px 34px;
+  font-size: clamp(13px, 2.4vw, 14px);
+  filter: none;
+  box-shadow: inset 0 0 0 2px rgba(0, 240, 255, 0.35);
+}
+
+.btn.ghost:hover {
+  box-shadow: inset 0 0 0 2px rgba(0, 240, 255, 0.85);
+  filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.35));
+  background: rgba(10, 18, 36, 0.85);
+}
+
+.btn.ghost:active {
+  transform: translateY(1px);
 }
 
 /* ---------- HUD ---------- */
@@ -141,7 +206,7 @@ canvas {
   position: absolute;
   top: 12px;
   left: 14px;
-  font-size: clamp(11px, 2vw, 14px);
+  font-size: clamp(11px, 2vw, 13px);
   color: #aeb7cc;
   line-height: 1.7;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
@@ -157,7 +222,7 @@ canvas {
   top: 12px;
   right: 14px;
   text-align: right;
-  font-size: clamp(11px, 2vw, 14px);
+  font-size: clamp(11px, 2vw, 13px);
   color: #ffb3be;
   line-height: 1.7;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
@@ -168,8 +233,8 @@ canvas {
   top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: clamp(26px, 5.5vw, 44px);
-  font-weight: 900;
+  font-size: clamp(24px, 5.5vw, 36px);
+  font-weight: 400;
   color: #fff;
   letter-spacing: 0.04em;
   text-shadow:
@@ -209,7 +274,7 @@ canvas {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: clamp(24px, 6vw, 46px);
-  font-weight: 900;
+  font-weight: 400;
   letter-spacing: 0.12em;
   color: #fff;
   text-shadow:
@@ -244,15 +309,15 @@ canvas {
 
 /* ---------- 结算 ---------- */
 .verdict {
-  font-size: clamp(22px, 5vw, 38px);
-  font-weight: 900;
+  font-size: clamp(22px, 5vw, 36px);
+  font-weight: 400;
   color: #ffd166;
   text-shadow: 0 0 30px rgba(255, 209, 102, 0.4);
   letter-spacing: 0.06em;
 }
 
 .result-title {
-  font-size: clamp(16px, 3.4vw, 22px);
+  font-size: clamp(16px, 3.4vw, 21px);
   color: #9aa3b8;
   letter-spacing: 0.4em;
 }
@@ -265,17 +330,17 @@ canvas {
   display: grid;
   grid-template-columns: repeat(2, minmax(120px, 1fr));
   gap: 10px 28px;
-  font-size: clamp(14px, 2.8vw, 17px);
+  font-size: clamp(13px, 2.8vw, 16px);
 }
 
 .stat-label {
-  color: #77809a;
+  color: var(--text-dim);
   text-align: right;
 }
 
 .stat-value {
   color: #fff;
-  font-weight: 700;
+  font-weight: 400;
   text-align: left;
   font-variant-numeric: tabular-nums;
 }
@@ -294,6 +359,286 @@ canvas {
 
 .paused-text {
   font-size: clamp(22px, 5vw, 36px);
-  font-weight: 900;
+  font-weight: 400;
   letter-spacing: 0.3em;
+}
+
+/* ==================================================
+ * 开始界面：街机 CRT
+ * ================================================== */
+.start-screen {
+  background:
+    linear-gradient(180deg, rgba(4, 5, 13, 0.68), rgba(4, 5, 13, 0.42) 40%, rgba(4, 5, 13, 0.66)),
+    rgba(4, 5, 13, 0.5);
+  backdrop-filter: none; /* 不模糊背后的网格/星空 */
+  padding: 0;
+}
+
+/* CRT 扫描线 + 暗角：盖在内容之上（z-index 4），低强度保证可读 */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      rgba(0, 0, 0, 0.15) 2px,
+      transparent 2px,
+      transparent 4px
+    ),
+    radial-gradient(ellipse 130% 100% at 50% 45%, transparent 62%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.start-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 24px;
+  scrollbar-width: none;
+}
+
+.start-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* 顶部拉丁装饰小字 */
+.title-en {
+  font-size: clamp(12px, 2.2vw, 14px);
+  color: var(--neon-cyan);
+  letter-spacing: 0.55em;
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.5);
+}
+
+/* ---------- glitch 标题：红/青错位伪元素 ---------- */
+.glitch-title {
+  position: relative;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  letter-spacing: inherit;
+  pointer-events: none;
+}
+
+.glitch-title::before {
+  color: var(--neon-cyan);
+  z-index: -1;
+  text-shadow: none;
+  animation: glitch-cyan 3.4s steps(1) infinite;
+}
+
+.glitch-title::after {
+  color: var(--neon-magenta);
+  z-index: -2;
+  text-shadow: none;
+  animation: glitch-magenta 2.9s steps(1) infinite 0.35s;
+}
+
+@keyframes glitch-cyan {
+  0%,
+  86%,
+  100% {
+    transform: none;
+    opacity: 0.7;
+  }
+  87% {
+    transform: translate(-4px, 2px);
+    opacity: 0.9;
+  }
+  89% {
+    transform: translate(3px, -1px);
+  }
+  91% {
+    transform: translate(-2px, 1px);
+    opacity: 0.7;
+  }
+  93% {
+    transform: translate(4px, 0);
+  }
+  95% {
+    transform: none;
+    opacity: 0.7;
+  }
+}
+
+@keyframes glitch-magenta {
+  0%,
+  84%,
+  100% {
+    transform: none;
+    opacity: 0.7;
+  }
+  85% {
+    transform: translate(4px, -2px);
+    opacity: 0.9;
+  }
+  88% {
+    transform: translate(-3px, 1px);
+  }
+  90% {
+    transform: translate(2px, 2px);
+    opacity: 0.7;
+  }
+  92% {
+    transform: none;
+    opacity: 0.7;
+  }
+}
+
+/* ---------- 海报 CRT 屏幕卡片 ---------- */
+.crt-frame {
+  position: relative;
+  padding: 10px;
+  background: linear-gradient(180deg, #1a2036, #0d1020);
+  border: 2px solid var(--panel-line);
+  box-shadow:
+    0 0 0 2px var(--bg-deep),
+    0 0 34px rgba(0, 240, 255, 0.12),
+    0 14px 44px rgba(0, 0, 0, 0.65);
+  animation: crt-in 0.7s ease-out both;
+}
+
+@keyframes crt-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.crt-screen {
+  position: relative;
+  overflow: hidden;
+  background: #05060f;
+}
+
+.crt-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.22) 0px,
+      rgba(0, 0, 0, 0.22) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    radial-gradient(ellipse 110% 95% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.crt-screen::before {
+  /* 屏幕内凹青色辉光 */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 24px rgba(0, 240, 255, 0.1),
+    inset 0 0 3px rgba(255, 255, 255, 0.18);
+}
+
+.poster-hero {
+  display: block;
+  width: min(78vw, 340px);
+  height: auto;
+}
+
+.crt-label {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--neon-cyan);
+  letter-spacing: 0.28em;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  animation: coin-blink 2.4s steps(1) infinite;
+}
+
+@keyframes coin-blink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  75%,
+  95% {
+    opacity: 0.25;
+  }
+}
+
+/* ---------- 记分牌 ---------- */
+.score-panel {
+  display: flex;
+  border: 2px solid var(--panel-line);
+  background: rgba(9, 13, 28, 0.78);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.07);
+}
+
+.score-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 9px 20px;
+}
+
+.score-cell + .score-cell {
+  border-left: 2px solid var(--panel-line);
+}
+
+.score-cell span {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.14em;
+}
+
+.score-cell b {
+  font-weight: 400;
+  font-size: 16px;
+  color: #ffd166;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px rgba(255, 209, 102, 0.35);
+}
+
+/* 矮屏时压缩卡片与标题，保证按钮可见 */
+@media (max-height: 780px) {
+  .poster-hero {
+    width: min(70vw, 280px);
+  }
+
+  .title {
+    font-size: clamp(22px, 5vw, 34px);
+  }
+
+  .start-content {
+    gap: 10px;
+  }
+}
+
+/* 减少动态：关闭 glitch / 闪烁 / 入场 */
+@media (prefers-reduced-motion: reduce) {
+  .glitch-title::before,
+  .glitch-title::after,
+  .crt-label {
+    animation: none;
+    opacity: 0.35;
+  }
+
+  .crt-frame {
+    animation: none;
+  }
 }

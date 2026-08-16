@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { GameCanvas } from './components/GameCanvas'
+import { MenuBackdrop } from './components/MenuBackdrop'
 import { StartScreen } from './components/StartScreen'
 import { HudOverlay, type Toast } from './components/HudOverlay'
 import { ResultScreen } from './components/ResultScreen'
@@ -136,7 +137,12 @@ export default function App() {
         />
       )}
 
-      {screen === 'menu' && <StartScreen records={records} onStart={startRun} />}
+      {screen === 'menu' && (
+        <>
+          <MenuBackdrop />
+          <StartScreen records={records} onStart={startRun} />
+        </>
+      )}
 
       {screen === 'result' && result && (
         <ResultScreen

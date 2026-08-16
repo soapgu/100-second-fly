@@ -4,6 +4,10 @@
  */
 export const COPY = {
   title: '是男人就坚持100秒',
+  /** 拉丁装饰小字（像素街机风点缀） */
+  titleEn: '100-SECOND FLY',
+  /** CRT 屏幕卡片底部标签 */
+  insertCoin: 'INSERT COIN · PRESS START',
   subtitle: '—— 弹幕躲避 · 生存挑战 ——',
   instructions: [
     '控制小飞机移动，躲避袭来的弹幕。',
