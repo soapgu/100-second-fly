@@ -1,5 +1,11 @@
 # 是男人就坚持100秒 · 100-second-fly
 
+## 🕹️ 在线游玩
+
+**<https://soapgu.github.io/100-second-fly/>**
+
+纯前端静态站，浏览器打开即玩，无需安装。也可下载 [GitHub Release](https://github.com/soapgu/100-second-fly/releases) 中的 `dist.zip` 本地运行。
+
 ![是男人就坚持100秒 Web 弹幕生存挑战海报](public/og.png)
 
 用 **React 18 + TypeScript + Vite** 复刻的 Flash 时代经典弹幕躲避生存小游戏：操控小飞机在越来越密集的弹幕中存活 **100 秒** 即通关，中弹即死。
