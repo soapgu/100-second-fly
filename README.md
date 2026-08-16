@@ -1,5 +1,7 @@
 # 是男人就坚持100秒 · 100-second-fly
 
+![是男人就坚持100秒 Web 弹幕生存挑战海报](public/og.png)
+
 用 **React 18 + TypeScript + Vite** 复刻的 Flash 时代经典弹幕躲避生存小游戏：操控小飞机在越来越密集的弹幕中存活 **100 秒** 即通关，中弹即死。
 
 > 调研背景见 [`RESEARCH.md`](./RESEARCH.md)（原版历史、"是男人就 XXX"系列、各版本玩法拆解）。
