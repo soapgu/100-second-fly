@@ -2,6 +2,8 @@ node_modules
 dist
 *.local
 .DS_Store
+# 项目以 npm 为准（package-lock.json + npm ci），忽略本地误生成的 yarn.lock
+yarn.lock
 
 # 敏感凭证（勿提交）
 token.json
