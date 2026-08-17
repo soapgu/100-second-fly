@@ -1,4 +1,5 @@
 import { COPY } from '../game/copy'
+import { isCoarsePointer } from '../game/input'
 import type { Records } from '../game/storage'
 
 interface Props {
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export function StartScreen({ records, onStart }: Props) {
+  // 模块加载时判定一次：手机/平板显示触屏操作说明
+  const touch = isCoarsePointer()
   return (
     <div className="overlay start-screen">
       {/* CRT 扫描线 + 暗角，盖住整块"屏幕"（含文字），低透明度保证可读 */}
@@ -45,9 +48,9 @@ export function StartScreen({ records, onStart }: Props) {
           ))}
         </div>
         <p className="small-note">
-          {COPY.controls}
+          {touch ? COPY.controlsTouch : COPY.controls}
           <br />
-          {COPY.hotkeys}
+          {touch ? COPY.hotkeysTouch : COPY.hotkeys}
         </p>
         {records.plays > 0 && (
           <div className="score-panel">

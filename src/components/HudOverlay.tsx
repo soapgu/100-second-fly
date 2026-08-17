@@ -1,4 +1,5 @@
 import { COPY } from '../game/copy'
+import { isCoarsePointer } from '../game/input'
 
 export interface Toast {
   id: number
@@ -26,6 +27,7 @@ export function HudOverlay({
   onTogglePause,
   onToggleMute,
 }: Props) {
+  const pausedHint = isCoarsePointer() ? COPY.pausedHintTouch : COPY.pausedHint
   return (
     <div className="hud">
       <div className="hud-status">
@@ -59,7 +61,7 @@ export function HudOverlay({
           onClick={onTogglePause}
         >
           <p className="paused-text">{COPY.paused}</p>
-          <p className="small-note">{COPY.pausedHint}</p>
+          <p className="small-note">{pausedHint}</p>
         </div>
       )}
     </div>

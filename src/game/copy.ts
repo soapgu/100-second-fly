@@ -15,6 +15,9 @@ export const COPY = {
   ],
   controls: '操作：方向键 / WASD 移动 · 按住 Shift 减速精走',
   hotkeys: 'P 暂停 · R 重开 · M 静音',
+  /** 触屏设备（手机/平板）文案 */
+  controlsTouch: '操作：手指按住画面拖动移动 · 第二根手指按住减速精走',
+  hotkeysTouch: '点 ⏸ 暂停 · 切后台自动暂停',
   start: '开始挑战',
   again: '再来一次',
   backToMenu: '返回菜单',
@@ -26,6 +29,7 @@ export const COPY = {
   winsLabel: '通关次数',
   paused: '已暂停',
   pausedHint: '按 P 或点击画面继续',
+  pausedHintTouch: '点击画面继续',
   statusElapsed: '已坚持',
   statusTarget: '目标 100s',
   statusIntensity: '弹幕强度',

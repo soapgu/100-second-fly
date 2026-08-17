@@ -38,6 +38,8 @@ body,
   position: relative;
   width: 100%;
   height: 100%;
+  /* 移动端浏览器地址栏收展时保持满屏（不支持 dvh 的环境回退到 100%） */
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -253,14 +255,16 @@ canvas {
 
 .icon-btn {
   font: inherit;
-  width: 38px;
-  height: 38px;
+  /* 44px：iOS 人机界面指南的最小触摸目标 */
+  width: 44px;
+  height: 44px;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(10, 10, 25, 0.6);
   color: #c9d1e2;
   font-size: 16px;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .icon-btn:hover {
