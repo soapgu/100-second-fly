@@ -74,3 +74,13 @@ src/
     storage.ts          # localStorage 纪录
     __tests__/          # 30 个单测（含 100 秒仿真）
 ```
+
+## 🎨 彩蛋：代码手绘像素海报
+
+![卡通像素海报：正面飞机驾驶员瞪眼咬牙，穿越弹幕直攻太空堡垒](public/og-cartoon.png)
+
+上面这张 16-bit 街机风海报**不是画的，是代码算的**：[`tools/generate-poster.mjs`](./tools/generate-poster.mjs) 用纯 Node 逐像素绘制 + 手写 PNG 编码（零依赖），正面飞机、压眉瞪眼的驾驶员、枪林弹雨与太空堡垒全是几何原语堆出来的。想改图就改代码，然后：
+
+```bash
+npm run poster     # 重新生成 public/og-cartoon.png
+```
