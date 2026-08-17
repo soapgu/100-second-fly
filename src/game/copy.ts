@@ -3,7 +3,7 @@
  * 想调整"味道"只改这里。
  */
 export const COPY = {
-  title: '是男人就坚持100秒',
+  title: '极限飞行',
   /** 拉丁装饰小字（像素街机风点缀） */
   titleEn: '100-SECOND FLY',
   /** CRT 屏幕卡片底部标签 */

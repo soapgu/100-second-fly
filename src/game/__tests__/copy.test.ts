@@ -20,7 +20,7 @@ describe('verdictFor 结算评价分档', () => {
 
 describe('COPY 文案完整性', () => {
   it('关键文案均非空', () => {
-    expect(COPY.title).toContain('100')
+    expect(COPY.title).toBe('极限飞行')
     expect(COPY.instructions.length).toBeGreaterThan(0)
     for (const line of COPY.instructions) expect(line.length).toBeGreaterThan(0)
     expect(COPY.controls.length).toBeGreaterThan(0)

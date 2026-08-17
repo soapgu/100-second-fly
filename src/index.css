@@ -82,9 +82,9 @@ canvas {
 }
 
 .title {
-  font-size: clamp(26px, 6vw, 48px);
+  font-size: clamp(34px, 8vw, 60px);
   font-weight: 400; /* 像素字体无字重，合成粗会发糊 */
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   color: #fff;
   text-shadow:
     0 0 8px rgba(255, 60, 80, 0.55),
