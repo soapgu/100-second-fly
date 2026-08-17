@@ -4,7 +4,7 @@
 
 **<https://soapgu.github.io/100-second-fly/>**
 
-纯前端静态站，浏览器打开即玩，无需安装。也可下载 [GitHub Release](https://github.com/soapgu/100-second-fly/releases) 中的 `dist.zip` 本地运行。
+纯前端静态站，浏览器打开即玩，无需安装。电脑键盘、手机/平板触屏均支持。也可下载 [GitHub Release](https://github.com/soapgu/100-second-fly/releases) 中的 `dist.zip` 本地运行。
 
 ![是男人就坚持100秒 Web 弹幕生存挑战海报](public/og.png)
 
@@ -39,6 +39,8 @@
 | P | 暂停 / 继续（切后台自动暂停） |
 | R | 结算界面快速重开 |
 | M | 静音切换 |
+| 手指拖动（触屏） | 按住画面拖动移动（相对拖动，手指不遮挡机体） |
+| 第二根手指按住（触屏） | 减速精确走位，等价 Shift |
 
 ## 本地运行
 
@@ -57,6 +59,7 @@ npm test           # vitest 单元测试（含 100 秒弹幕仿真）
 - 固定步长更新（60Hz）+ rAF 渲染；子弹/粒子**对象池**避免 GC 抖动
 - 难度为**数据驱动时间轴**（`difficulty.ts`），发射间隔在阶段内线性收紧
 - 全部界面文案集中在 `copy.ts`，方便调整"味道"
+- 输入统一走 PointerEvent：键盘 + 触屏/鼠标相对拖动（手指不遮挡机体），第二指按住等价 Shift 减速
 - 音效用 WebAudio 程序化生成，无音频文件
 
 ```
