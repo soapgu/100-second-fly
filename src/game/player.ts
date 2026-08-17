@@ -17,9 +17,12 @@ export class Player {
 
   update(dt: number, input: InputSnapshot): void {
     if (!this.alive) return
-    const speed = input.slow ? KEY_SPEED * SLOW_FACTOR : KEY_SPEED
-    this.x += input.kx * speed * dt
-    this.y += input.ky * speed * dt
+    const slow = input.slow
+    const speed = slow ? KEY_SPEED * SLOW_FACTOR : KEY_SPEED
+    // 指针拖动位移直接叠加（触屏时同样受减速系数约束，精走更细腻）
+    const tf = slow ? SLOW_FACTOR : 1
+    this.x += input.kx * speed * dt + input.tdx * tf
+    this.y += input.ky * speed * dt + input.tdy * tf
     this.x = Math.max(MARGIN, Math.min(WORLD_W - MARGIN, this.x))
     this.y = Math.max(MARGIN, Math.min(WORLD_H - MARGIN, this.y))
 

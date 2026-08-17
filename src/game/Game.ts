@@ -114,7 +114,7 @@ export class Game {
   }
 
   start(): void {
-    this.input.attach()
+    this.input.attach(this.canvas)
     this.resize()
     const onResize = () => this.resize()
     window.addEventListener('resize', onResize)
@@ -129,6 +129,8 @@ export class Game {
   setPaused(paused: boolean): void {
     this.paused = paused
     this.lastTs = performance.now()
+    // 暂停期间清空未消费的拖动位移，避免恢复瞬间机体跳动
+    if (paused) this.input.reset()
   }
 
   destroy(): void {
@@ -161,6 +163,8 @@ export class Game {
     this.lastTs = ts
     if (dt > 0.1) dt = 0.1
     if (this.paused) {
+      // 暂停中手指仍可能按住拖动，持续丢弃累积位移
+      this.input.reset()
       this.render()
       return
     }
